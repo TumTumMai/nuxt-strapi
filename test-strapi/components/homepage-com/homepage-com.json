@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_homepage_com_homepage_coms",
+  "info": {
+    "name": "HomepageCom",
+    "icon": "atlas",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Hometitle": {
+      "type": "string"
+    },
+    "Homeimage": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/moviedetel",
+      "handler": "moviedetel.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/moviedetel",
+      "handler": "moviedetel.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/moviedetel",
+      "handler": "moviedetel.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
