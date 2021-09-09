@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_moviels_moviels",
+  "info": {
+    "name": "moviels",
+    "icon": "allergies"
+  },
+  "options": {},
+  "attributes": {
+    "movies": {
+      "collection": "movie"
+    }
+  }
+}

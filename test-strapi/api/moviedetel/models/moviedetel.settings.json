@@ -2,7 +2,8 @@
   "kind": "singleType",
   "collectionName": "moviedetels",
   "info": {
-    "name": "moviedetel"
+    "name": "moviedetel",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -22,6 +23,9 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "TitlebackHome": {
+      "type": "string"
     }
   }
 }

@@ -4,8 +4,19 @@
       <img :src="'http://localhost:1336' + imageHome" />
     </div>
     <H1>{{ titie }}</H1>
-    <!-- ////ถ้าเป็นตัวแปลsrcต้องมี:หน้าsrc -->
 
+    <!-- ////ถ้าเป็นตัวแปลsrcต้องมี:หน้าsrc -->
+    <div class="search-input">
+      <input
+        v-model="datasearch"
+        type="text"
+        id="search-box"
+        placeholder="Search..."
+      />
+      <button id="btn-search" @click="search()">
+        <i class="fa fa-search" aria-hidden="true">ค้นหา</i>
+      </button>
+    </div>
     <div
       class="bok"
       v-for="(movie, index) in movies"
@@ -25,6 +36,7 @@ export default {
       titie: "",
       imageHome: "",
       movies: [],
+      datasearch: "",
     };
   },
   mounted() {
@@ -32,14 +44,22 @@ export default {
       this.titie = res.data.Fixhome.Hometitle;
       this.imageHome = res.data.Fixhome.Homeimage.formats.large.url;
     });
-    this.$axios.get("http://localhost:1336/movies").then((res) => {
-      this.movies = res.data;
-    });
+    // console.log(this.data());
+    this.search();
   },
 
   methods: {
     cickmovie(id) {
       this.$router.push("/" + id);
+    },
+    search() {
+      let url = "http://localhost:1336/movies";
+      let qparams = {
+        slug_contains: this.datasearch,
+      };
+      this.$axios.get(url, { params: qparams }).then((res) => {
+        this.movies = res.data;
+      });
     },
   },
 };
@@ -63,5 +83,8 @@ export default {
   /* border: 1px solid black; */
   margin-bottom: 20px;
   cursor: pointer;
+}
+.search-input {
+  margin-bottom: 30px;
 }
 </style>
