@@ -3,28 +3,33 @@
     <div class="backgrowimg">
       <img :src="'http://localhost:1336' + imageHome" />
     </div>
-    <H1>{{ titie }}</H1>
+    <div class="container">
+      <H1 class="fonhome">{{ titie }}</H1>
 
-    <!-- ////ถ้าเป็นตัวแปลsrcต้องมี:หน้าsrc -->
-    <div class="search-input">
-      <input
-        v-model="datasearch"
-        type="text"
-        id="search-box"
-        placeholder="Search..."
-      />
-      <button id="btn-search" @click="search()">
-        <i class="fa fa-search" aria-hidden="true">ค้นหา</i>
-      </button>
-    </div>
-    <div
-      class="bok"
-      v-for="(movie, index) in movies"
-      :key="index"
-      @click="cickmovie(movie.id)"
-    >
-      <img :src="'http://localhost:1336' + movie.image.formats.medium.url" />
-      <h4>{{ movie.title }}</h4>
+      <div class="search-input">
+        <input
+          v-model="datasearch"
+          type="text"
+          id="search-box"
+          placeholder="Search..."
+        />
+        <button id="btn-search" @click="search()">
+          <i class="fa fa-search" aria-hidden="true">ค้นหา</i>
+        </button>
+      </div>
+      <div class="cenmovie">
+        <div
+          class="bok"
+          v-for="(movie, index) in movies"
+          :key="index"
+          @click="cickmovie(movie.id)"
+        >
+          <img
+            :src="'http://localhost:1336' + movie.image.formats.medium.url"
+          />
+          <h4>{{ movie.title }}</h4>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -84,7 +89,22 @@ export default {
   margin-bottom: 20px;
   cursor: pointer;
 }
+.bok > img {
+  width: 300px;
+}
 .search-input {
   margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+.fonhome {
+  text-align: center;
+  font-weight: 900;
+  margin-top: 20px;
+}
+.cenmovie {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 </style>
