@@ -33,14 +33,21 @@ export default {
   },
   mounted() {
     let movieis = this.$route.params.movieid;
-    console.log(movieis);
-    this.$axios.get("http://localhost:1336/movies/" + movieis).then((res) => {
-      this.titel = res.data.title;
-      // console.log(this.titel);
-      this.content = res.data.content;
-      this.description = res.data.description;
-      this.imgmovie = res.data.Video.url;
-    });
+    let userdata = localStorage.getItem("dataall");
+    userdata = JSON.parse(userdata);
+    this.$axios
+      .get("http://localhost:1336/movies/" + movieis, {
+        headers: {
+          Authorization: "Bearer " + userdata.jwt,
+        },
+      })
+      .then((res) => {
+        this.titel = res.data.title;
+        // console.log(this.titel);
+        this.content = res.data.content;
+        this.description = res.data.description;
+        this.imgmovie = res.data.Video.url;
+      });
 
     this.$axios.get("http://localhost:1336/moviedetel").then((res) => {
       this.imgbackgrod = res.data.Img.formats.medium.url;

@@ -5,7 +5,11 @@
     </div>
     <div class="container">
       <H1 class="fonhome">{{ titie }}</H1>
-
+      <div class="buttoncontennet">
+        <h4 v-if="!isloggedin" @click="cicklogin()" class="login">Login</h4>
+        <h4 v-if="!isloggedin" @click="register()" class="login">Register</h4>
+        <h4 v-if="isloggedin" @click="logout()" class="login">Logout</h4>
+      </div>
       <div class="search-input">
         <input
           v-model="datasearch"
@@ -38,6 +42,7 @@
 export default {
   data() {
     return {
+      isloggedin: false,
       titie: "",
       imageHome: "",
       movies: [],
@@ -51,9 +56,25 @@ export default {
     });
     // console.log(this.data());
     this.search();
+    this.islogin();
   },
 
   methods: {
+    logout() {
+      localStorage.removeItem("dataall");
+      this.islogin();
+      this.movies = [];
+    },
+
+    islogin() {
+      let login = localStorage.getItem("dataall");
+      if (login) {
+        this.isloggedin = true;
+      } else {
+        this.isloggedin = false;
+      }
+    },
+
     cickmovie(id) {
       this.$router.push("/" + id);
     },
@@ -62,9 +83,27 @@ export default {
       let qparams = {
         slug_contains: this.datasearch,
       };
-      this.$axios.get(url, { params: qparams }).then((res) => {
-        this.movies = res.data;
-      });
+      let userdata = localStorage.getItem("dataall");
+      userdata = JSON.parse(userdata);
+      if (!userdata) {
+        return;
+      }
+      this.$axios
+        .get(url, {
+          params: qparams,
+          headers: {
+            Authorization: "Bearer " + userdata.jwt,
+          },
+        })
+        .then((res) => {
+          this.movies = res.data;
+        });
+    },
+    cicklogin() {
+      this.$router.push("/login");
+    },
+    register() {
+      this.$router.push("/register");
     },
   },
 };
@@ -106,5 +145,17 @@ export default {
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+.login {
+  /* border: 1px solid black; */
+  text-align: center;
+  font-weight: 900;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.buttoncontennet {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 </style>
