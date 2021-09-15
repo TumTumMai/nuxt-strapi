@@ -10,6 +10,9 @@
         <h4 v-if="!isloggedin" @click="register()" class="login">Register</h4>
         <h4 v-if="isloggedin" @click="logout()" class="login">Logout</h4>
       </div>
+      <div class="buttoncontennet">
+        <h4 @click="cicktest()" class="login">test1</h4>
+      </div>
       <div class="search-input">
         <input
           v-model="datasearch"
@@ -104,6 +107,14 @@ export default {
     },
     register() {
       this.$router.push("/register");
+    },
+    cicktest() {
+      let userdata = localStorage.getItem("dataall");
+      userdata = JSON.parse(userdata);
+      if (!userdata) {
+        return;
+      }
+      this.$router.push("/test");
     },
   },
 };
