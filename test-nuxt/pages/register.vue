@@ -72,9 +72,13 @@ export default {
         confirmed: false,
         blocked: false,
       };
-      this.$axios.post(url, body).then((res) => {
-        this.$router.push("/login");
-      });
+      this.$axios
+        .post(url, body)
+        .then((res) => {
+          alert("Register Sucsess");
+          this.$router.push("/login");
+        })
+        .catch((error) => alert("Register Failure"));
     },
   },
 };

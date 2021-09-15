@@ -74,10 +74,15 @@ export default {
         identifier: this.form.identifier,
         password: this.form.password,
       };
-      this.$axios.post(url, body).then((res) => {
-        localStorage.setItem("dataall", JSON.stringify(res.data));
-        this.$router.push("/");
-      });
+
+      this.$axios
+        .post(url, body)
+        .then((res) => {
+          localStorage.setItem("dataall", JSON.stringify(res.data));
+          alert("Login Sucsess");
+          this.$router.push("/");
+        })
+        .catch((error) => alert("Login Failure"));
     },
   },
 };

@@ -112,6 +112,8 @@ export default {
       let userdata = localStorage.getItem("dataall");
       userdata = JSON.parse(userdata);
       if (!userdata) {
+        alert("กรุณาLogin");
+        this.$router.push("/login");
         return;
       }
       this.$router.push("/test");
