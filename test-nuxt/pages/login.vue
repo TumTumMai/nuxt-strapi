@@ -83,6 +83,7 @@ export default {
           this.$router.push("/");
         })
         .catch((error) => alert("Login Failure"));
+        
     },
   },
 };
