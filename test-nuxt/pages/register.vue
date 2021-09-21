@@ -64,7 +64,7 @@ export default {
   mounted() {},
   methods: {
     register() {
-      let url = "http://localhost:1336/users";
+      let url = "http://localhost:1336/auth/local/register";
       let body = {
         username: this.form.username,
         email: this.form.email,

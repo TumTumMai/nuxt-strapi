@@ -54,6 +54,7 @@
 </template>
 <script>
 export default {
+  //   middleware: "authenticatedLogin",
   data() {
     return {
       form: {
@@ -83,7 +84,6 @@ export default {
           this.$router.push("/");
         })
         .catch((error) => alert("Login Failure"));
-        
     },
   },
 };

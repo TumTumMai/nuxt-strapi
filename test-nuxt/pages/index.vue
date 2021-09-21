@@ -6,9 +6,15 @@
     <div class="container">
       <H1 class="fonhome">{{ titie }}</H1>
       <div class="buttoncontennet">
-        <h4 v-if="!isloggedin" @click="cicklogin()" class="login">Login</h4>
-        <h4 v-if="!isloggedin" @click="register()" class="login">Register</h4>
-        <h4 v-if="isloggedin" @click="logout()" class="login">Logout</h4>
+        <h4 v-if="isloggedin === false" @click="cicklogin()" class="login">
+          Login
+        </h4>
+        <h4 v-if="isloggedin === false" @click="register()" class="login">
+          Register
+        </h4>
+        <h4 v-if="isloggedin !== false" @click="logout()" class="login">
+          Logout
+        </h4>
       </div>
       <div class="buttoncontennet">
         <h4 @click="cicktest()" class="login">test1</h4>
@@ -45,7 +51,7 @@
 export default {
   data() {
     return {
-      isloggedin: false,
+      isloggedin: "",
       titie: "",
       imageHome: "",
       movies: [],
@@ -58,49 +64,52 @@ export default {
       this.imageHome = res.data.Fixhome.Homeimage.formats.large.url;
     });
     // console.log(this.data());
+    this.changeUserStatus();
+    // console.log(this.isloggedin);
     this.search();
-    this.islogin();
   },
 
   methods: {
-    logout() {
-      localStorage.removeItem("dataall");
-      this.islogin();
-      this.movies = [];
-    },
-
-    islogin() {
+    changeUserStatus() {
       let login = localStorage.getItem("dataall");
+      login = JSON.parse(login);
       if (login) {
-        this.isloggedin = true;
+        this.isloggedin = login.jwt;
       } else {
         this.isloggedin = false;
       }
     },
-
-    cickmovie(id) {
-      this.$router.push("/" + id);
+    logout() {
+      localStorage.removeItem("dataall");
+      this.changeUserStatus();
+      this.movies = [];
     },
+
     search() {
+      if (this.isloggedin === false) {
+        return;
+      }
       let url = "http://localhost:1336/movies";
+
       let qparams = {
         slug_contains: this.datasearch,
       };
-      let userdata = localStorage.getItem("dataall");
-      userdata = JSON.parse(userdata);
-      if (!userdata) {
-        return;
-      }
+      //   let userdata = this.changeUserStatus();
+      //   userdata = JSON.parse(userdata);
+
       this.$axios
         .get(url, {
           params: qparams,
           headers: {
-            Authorization: "Bearer " + userdata.jwt,
+            Authorization: "Bearer " + this.isloggedin,
           },
         })
         .then((res) => {
           this.movies = res.data;
         });
+    },
+    cickmovie(id) {
+      this.$router.push("/" + id);
     },
     cicklogin() {
       this.$router.push("/login");
@@ -109,9 +118,7 @@ export default {
       this.$router.push("/register");
     },
     cicktest() {
-      let userdata = localStorage.getItem("dataall");
-      userdata = JSON.parse(userdata);
-      if (!userdata) {
+      if (this.isloggedin === false) {
         alert("กรุณาLogin");
         this.$router.push("/login");
         return;
