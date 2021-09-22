@@ -80,7 +80,22 @@ export default {
       }
     },
     logout() {
+      // localStorage.removeItem("dataall");
+      let url = "http://localhost:1336/auth/revoke";
+      let refreshToken = localStorage.getItem("dataall");
+      refreshToken = JSON.parse(refreshToken);
+      let body = {
+        token: refreshToken.refresh,
+      };
+      this.$axios
+        .post(url, body, {
+          headers: {
+            Authorization: "Bearer " + this.isloggedin,
+          },
+        })
+        .then((res) => {});
       localStorage.removeItem("dataall");
+
       this.changeUserStatus();
       this.movies = [];
     },

@@ -54,7 +54,7 @@
 </template>
 <script>
 export default {
-  //   middleware: "authenticatedLogin",
+  middleware: "authenticatedLogin",
   data() {
     return {
       form: {

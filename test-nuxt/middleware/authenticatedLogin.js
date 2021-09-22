@@ -5,13 +5,10 @@ export default function ({ store, redirect }) {
     let user = localStorage.getItem("dataall")
     // console.log(store)
     // If the user is not authenticated
-    if (!user) {
+    if (user) {
         return redirect('/')
 
     }
-    else {
-        return redirect('/login')
 
-    }
 
 }
