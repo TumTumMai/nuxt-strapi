@@ -53,8 +53,10 @@
   </div>
 </template>
 <script>
+import mixinsjwt from "@/mixins/mixjwt.vue";
 export default {
   middleware: "authenticatedLogin",
+  mixins: [mixinsjwt],
   data() {
     return {
       form: {
@@ -80,11 +82,15 @@ export default {
         .post(url, body)
         .then((res) => {
           localStorage.setItem("dataall", JSON.stringify(res.data));
+          // this.timeoutToken(res.data.jwt);
           alert("Login Sucsess");
           this.$router.push("/");
         })
         .catch((error) => alert("Login Failure"));
     },
+    ////////////////////////
+
+    // //////////////////
   },
 };
 </script>

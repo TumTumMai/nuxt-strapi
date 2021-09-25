@@ -69,8 +69,6 @@ export default {
         username: this.form.username,
         email: this.form.email,
         password: this.form.password,
-        confirmed: false,
-        blocked: false,
       };
       this.$axios
         .post(url, body)

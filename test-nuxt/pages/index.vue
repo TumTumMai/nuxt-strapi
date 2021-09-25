@@ -48,7 +48,10 @@
 </template>
 
 <script>
+import mixinsjwt from "@/mixins/mixjwt.vue";
 export default {
+  mixins: [mixinsjwt],
+
   data() {
     return {
       isloggedin: "",
@@ -75,6 +78,7 @@ export default {
       login = JSON.parse(login);
       if (login) {
         this.isloggedin = login.jwt;
+        // this.timeoutToken(this.isloggedin);
       } else {
         this.isloggedin = false;
       }
@@ -97,6 +101,8 @@ export default {
       localStorage.removeItem("dataall");
 
       this.changeUserStatus();
+      // console.log("sdsdsdasdasfas", this.timeoutid);
+      // clearTimeout(this.timeoutid);
       this.movies = [];
     },
 
